@@ -37,6 +37,7 @@ func (c CreateTaskController) Execute(w http.ResponseWriter, r *http.Request){
 
 	if err := c.uc.Execute(r.Context(),input); err != nil{
 		handler.HandleError(w,err)
+		return
 	}
 
 	response.NewSuccess(http.StatusCreated,"").Send(w)

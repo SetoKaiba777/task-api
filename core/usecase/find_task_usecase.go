@@ -28,8 +28,6 @@ func (uc * findByIdUseCase) Execute(ctx context.Context, id input.TaskIdInput) (
 	if err!= nil {
 		return domain.Task{}, err
 	}
-	if task == *domain.NewTask() {
-		return domain.Task{},domain.ErrNotFoundTask
-	}
+	
 	return task, nil
 }

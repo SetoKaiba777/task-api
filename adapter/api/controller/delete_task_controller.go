@@ -27,6 +27,7 @@ func (c  DeleteTaskController) Execute(w http.ResponseWriter, r *http.Request){
 
 	if err :=c.uc.Execute(r.Context(),i); err != nil{
 		handler.HandleError(w,err)
+		return
 	}
 
 	response.NewSuccess(http.StatusNoContent,"").Send(w)

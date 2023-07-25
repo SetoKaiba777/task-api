@@ -54,9 +54,13 @@ func (m *MySQLConnection) FindById(ctx context.Context, id string) (domain.Task,
 	var task entity.TaskEntity
 	result := m.db.Where("id =?",id).First(&task)
 	if result.Error != nil{
-		return domain.Task{}, result.Error
+		switch result.Error.Error(){
+		case "record not found":
+			return domain.Task{},domain.ErrNotFoundTask
+		default:
+			return domain.Task{}, result.Error				
+		}
 	}
-
 	return task.ToDomain(), nil
 }
 

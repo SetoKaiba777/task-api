@@ -29,6 +29,7 @@ func (c GetTaskController) Execute(w http.ResponseWriter, r *http.Request){
 	task, err :=c.uc.Execute(r.Context(),i)
 	if err != nil{
 		handler.HandleError(w,err)
+		return
 	}
 
 	response.NewSuccess(http.StatusOK,task).Send(w)

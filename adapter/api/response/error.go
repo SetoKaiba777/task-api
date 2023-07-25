@@ -20,7 +20,7 @@ func NewError(err error, status int) *Error {
 func (e Error) Send(w http.ResponseWriter){
 	w.Header().Set("Content-Type","application/json")
 	w.WriteHeader(e.statusCode)
-	if errEncoder := json.NewEncoder(w).Encode(e); errEncoder != nil {
+	if errEncoder := json.NewEncoder(w).Encode(e.erros); errEncoder != nil {
 		return
 	}
 }
