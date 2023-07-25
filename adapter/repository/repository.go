@@ -12,6 +12,11 @@ type TaskRepository struct {
 
 var _ repository.TaskRepository = (*TaskRepository)(nil)
 
+func NewTaskRepository(db TaskRepositoryDb) *TaskRepository{
+	return &TaskRepository{db: db}
+}
+
+
 func (t * TaskRepository) Save(ctx context.Context,task domain.Task) (domain.Task, error){
 	tr, err := t.db.Save(ctx, task)
 	

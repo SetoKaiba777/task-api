@@ -1,15 +1,18 @@
-
 package domain
 
-import "errors"
+import (
+	"errors"
+)
 
-var(
-	 ErrInvalidStatus = errors.New("invalid status")
-	 ErrNotFoundTask = errors.New("not found task")
+var (
+	ErrInvalidStatus = errors.New("invalid status")
+	ErrNotFoundTask  = errors.New("not found task")
 )
 
 type Task struct {
-	Id, Name, Status string
+	Id     string `gorm:"primaryKey;type:char(36)"`
+	Name   string
+	Status string
 }
 
 func NewTask() *Task {
@@ -37,3 +40,4 @@ func (t *Task) Build() (*Task, error) {
 	}
 	return t, nil
 }
+

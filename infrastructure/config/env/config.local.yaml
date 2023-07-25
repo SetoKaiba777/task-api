@@ -1,0 +1,9 @@
+application:
+  name: payments
+  levelLog: debug
+  server:
+    port: 8080
+    timeout: 100
+
+mysql:
+  host: "root:123@tcp(localhost:3306)/tasks_database?charset=utf8mb4&parseTime=True&loc=Local"
