@@ -16,33 +16,33 @@ type UpdateTaskController struct {
 
 var _ Controller = (*UpdateTaskController)(nil)
 
-func NewUpdateTaskController(uc usecase.UpdateUseCaseInterface) UpdateTaskController{
+func NewUpdateTaskController(uc usecase.UpdateUseCaseInterface) UpdateTaskController {
 	return UpdateTaskController{
-		uc : uc,
+		uc: uc,
 	}
 }
 
-func (c UpdateTaskController) Execute(w http.ResponseWriter, r *http.Request){
+func (c UpdateTaskController) Execute(w http.ResponseWriter, r *http.Request) {
 
 	jsonBody, err := io.ReadAll(r.Body)
-	if err != nil{
-		handler.HandleError(w,err)
+	if err != nil {
+		handler.HandleError(w, err)
 		return
 	}
 
 	var input input.TaskInput
-	if err:= json.Unmarshal(jsonBody,&input); err != nil{
-		handler.HandleError(w,err)
+	if err := json.Unmarshal(jsonBody, &input); err != nil {
+		handler.HandleError(w, err)
 		return
 	}
 
-	var taskId = r.URL.Query().Get("taskId")	
+	var taskId = r.URL.Query().Get("taskId")
 	input.Id = taskId
 
-	if err := c.uc.Execute(r.Context(),input); err != nil{
-		handler.HandleError(w,err)
+	if err := c.uc.Execute(r.Context(), input); err != nil {
+		handler.HandleError(w, err)
 		return
 	}
 
-	response.NewSuccess(http.StatusOK,input).Send(w)
+	response.NewSuccess(http.StatusOK, "Update successfuly").Send(w)
 }

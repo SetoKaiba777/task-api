@@ -21,16 +21,29 @@ func NewUpdateUseCase(repository repository.TaskRepository) UpdateUseCaseInterfa
 }
 
 func (uc *updateUseCase) Execute(ctx context.Context, i input.TaskInput) error{
-	task, err := domain.NewTask().
-						WithId(i.Id).
-						WithName(i.Name).
-						WithStatus(i.Status).
-						Build()
-	if err != nil{
-		return err
+	if i.Status != "" {
+		task, err := domain.NewTask().
+		WithId(i.Id).
+		WithName(i.Name).
+		WithStatus(i.Status).
+		Build()
+		if err != nil{
+			return err
+		}
+
+		_, err = uc.repository.Update(ctx,*task)
+		if err != nil{
+			return err
+		}
+	
 	}
 
-	_, err = uc.repository.Update(ctx,*task)
+	task := domain.NewTask().
+	WithId(i.Id).
+	WithName(i.Name).
+	WithStatus(i.Status)
+
+	_, err := uc.repository.Update(ctx,*task)
 	if err != nil{
 		return err
 	}

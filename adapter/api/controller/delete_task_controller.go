@@ -30,6 +30,6 @@ func (c  DeleteTaskController) Execute(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	response.NewSuccess(http.StatusNoContent,"").Send(w)
+	response.NewSuccess(http.StatusNoContent,"Delete successfuly").Send(w)
 
 }
