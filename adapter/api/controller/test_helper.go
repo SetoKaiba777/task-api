@@ -34,6 +34,10 @@ type (
 		mock.Mock
 	}
 
+	saveAllUseCaseMock struct {
+		mock.Mock
+	}
+
 	findByIdUseCaseMock struct {
 		mock.Mock
 	}
@@ -48,6 +52,7 @@ type (
 )
 
 var _ usecase.SaveUseCaseInterface = (*saveUseCaseMock)(nil)
+var _ usecase.SaveAllUseCaseInterface = (*saveAllUseCaseMock)(nil)
 var _ usecase.FindByIdUseCaseInterface = (*findByIdUseCaseMock)(nil)
 var _ usecase.DeleteByIdUseCaseInterface = (*deleteByIdUseCaseMock)(nil)
 var _ usecase.UpdateUseCaseInterface = (*updateUseCaseMock)(nil)
@@ -69,5 +74,10 @@ func (mDel *deleteByIdUseCaseMock) Execute(ctx context.Context, id input.TaskIdI
 
 func (mUp *updateUseCaseMock) Execute(ctx context.Context, i input.TaskInput ) error{
 	args:= mUp.Called()
+	return args.Error(0)
+}
+
+func (sAll *saveAllUseCaseMock) Execute(ctx context.Context, i []input.TaskInput ) error{
+	args:= sAll.Called()
 	return args.Error(0)
 }

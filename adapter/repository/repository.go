@@ -54,3 +54,13 @@ func (t * TaskRepository) FindById(ctx context.Context,id string) (domain.Task, 
 
 	return tr,nil
 }
+
+func (t * TaskRepository) SaveAll(ctx context.Context,tasks []domain.Task) error{
+	err := t.db.SaveAll(ctx,tasks)
+
+	if err != nil{
+		return err
+	}
+
+	return nil
+}

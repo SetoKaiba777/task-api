@@ -83,6 +83,7 @@ func (engine ginEngine) Listen() {
 
 func (engine ginEngine) setAppHandlers(router *gin.Engine) {
 	router.POST("/v1/tasks", engine.HandlePostTask())
+	router.POST("/v1/tasks/list", engine.HandlePostAllTask())
 	router.GET("/v1/tasks/:taskId", engine.HandleGetTask())
 	router.DELETE("/v1/tasks/:taskId", engine.HandleDeleteTask())
 	router.PUT("/v1/tasks/:taskId", engine.HandleUpdateTask())
@@ -92,6 +93,15 @@ func (e ginEngine) HandlePostTask() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		uc:=usecase.NewSaveUseCase(e.repo)
 		c := controller.NewCreateTaskController(uc)
+		c.Execute(ctx.Writer, ctx.Request)
+
+	}
+}
+
+func (e ginEngine) HandlePostAllTask() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		uc:=usecase.NewSaveAllUseCase(e.repo)
+		c := controller.NewCreateAllTaskController(uc)
 		c.Execute(ctx.Writer, ctx.Request)
 
 	}

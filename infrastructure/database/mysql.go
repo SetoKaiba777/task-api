@@ -64,3 +64,15 @@ func (m *MySQLConnection) FindById(ctx context.Context, id string) (domain.Task,
 	return task.ToDomain(), nil
 }
 
+func (m *MySQLConnection) SaveAll(ctx context.Context,tasks []domain.Task) error{
+	tx := m.db.Begin()
+
+	for _, task := range tasks{
+		if err:= tx.Create(entity.NewTaskEntity(task)).Error; err != nil{
+			tx.Rollback()
+			return err
+		}
+	}
+	tx.Commit()
+	return nil
+}

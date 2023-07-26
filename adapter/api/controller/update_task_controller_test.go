@@ -23,11 +23,7 @@ func TestUpdateTaskController(t *testing.T) {
 				Name: "Fazer altos nadas",
 				Status: "Doing",
 			},
-			expectedBodyReturn: input.TaskInput{
-				Id: "1",
-				Name: "Fazer altos nadas",
-				Status: "Doing",
-			},
+			expectedBodyReturn: "Update successfuly",
 			expectedStatus: http.StatusOK,
 			expectedError: nil,
 		},
@@ -61,7 +57,7 @@ func TestUpdateTaskController(t *testing.T) {
 			if scenario.expectedError == nil{
 				expectedResponse :=response.NewSuccess(200,scenario.expectedBodyReturn)
 				
-				var bodyDecoded input.TaskInput
+				var bodyDecoded string
 				json.NewDecoder(w.Body).Decode(&bodyDecoded)
 				actualResponse :=response.NewSuccess(200,bodyDecoded)
 				

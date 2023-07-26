@@ -53,6 +53,7 @@ require (
 	github.com/spf13/viper v1.16.0
 	github.com/stretchr/objx v0.5.0 // indirect
 	go.uber.org/zap v1.24.0
+	golang.org/x/sync v0.3.0
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/gorm v1.25.2

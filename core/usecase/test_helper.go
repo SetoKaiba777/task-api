@@ -43,3 +43,8 @@ func (r * mockedRepository) FindById(ctx context.Context,id string) (domain.Task
 	args := r.Called()
 	return args.Get(0).(domain.Task),args.Error(1)
 }
+
+func (r*  mockedRepository) SaveAll(ctx context.Context,task []domain.Task)  error{
+	args := r.Called()
+	return args.Error(0)
+}
