@@ -6,6 +6,7 @@ import (
 	"go-challenger/core/domain"
 	"go-challenger/infrastructure/database/entity"
 
+	"golang.org/x/sync/errgroup"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -67,12 +68,22 @@ func (m *MySQLConnection) FindById(ctx context.Context, id string) (domain.Task,
 func (m *MySQLConnection) SaveAll(ctx context.Context,tasks []domain.Task) error{
 	tx := m.db.Begin()
 
+	eg := &errgroup.Group{}
+
 	for _, task := range tasks{
-		if err:= tx.Create(entity.NewTaskEntity(task)).Error; err != nil{
-			tx.Rollback()
-			return err
-		}
+		eg.Go(func() error{
+			if err:= tx.Create(entity.NewTaskEntity(task)).Error; err != nil{
+				return err
+			}
+			return nil
+		})
 	}
+
+	if err:= eg.Wait(); err != nil{
+		tx.Rollback()
+		return err
+	}
+
 	tx.Commit()
 	return nil
 }
