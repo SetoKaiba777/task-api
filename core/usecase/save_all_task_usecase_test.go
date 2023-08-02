@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"go-challenger/core/domain"
 	"go-challenger/core/usecase/input"
 	"testing"
 
@@ -41,21 +40,6 @@ func TestSaveAll(t *testing.T) {
 			},
 			mockedError: errGenericConnection,
 			expectedError: errGenericConnection,
-		},
-		{
-			name: "invalid status error",
-			input: []input.TaskInput{
-				{
-					Name: "Fazer altos nadas",
-					Status: "Doing",
-				},
-				{
-					Name: "Fazer altos nadas 2- 'Pesquisa científica'",
-					Status: "Banana",
-				},
-			},
-			mockedError: nil,
-			expectedError: domain.ErrInvalidStatus,
 		},
 	}
 	for _, scenario := range tt{

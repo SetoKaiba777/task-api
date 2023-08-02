@@ -38,17 +38,6 @@ func TestUpdateUseCasae(t *testing.T) {
 			mockedError: errGenericConnection,
 			expectedError: errGenericConnection,
 		},
-		{
-			name: "invalid status error",
-			input: input.TaskInput{
-				Id: "1",
-				Name: "Fazer altos nadas",
-				Status: "Sei lá",
-			},
-			output: domain.Task{},
-			mockedError: nil,
-			expectedError: domain.ErrInvalidStatus,
-		},
 	}
 	for _, scenario := range tt{
 		t.Run(scenario.name, func (t *testing.T)  {

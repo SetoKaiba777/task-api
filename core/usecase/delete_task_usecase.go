@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"go-challenger/core/domain"
 	"go-challenger/core/repository"
 	"go-challenger/core/usecase/input"
 )
@@ -24,12 +23,9 @@ func NewDeleteByIdUseCase(repository repository.TaskRepository) DeleteByIdUseCas
 }
 
 func (uc * deleteByIdUseCase) Execute(ctx context.Context,id input.TaskIdInput) error{
-	task, err:= uc.repository.FindById(ctx,id.Id)
+	_, err:= uc.repository.FindById(ctx,id.Id)
 	if err!= nil {
 		return err
-	}
-	if task == *domain.NewTask() {
-		return domain.ErrNotFoundTask
 	}
 
 	if err := uc.repository.Delete(ctx,id.Id);err!=nil{

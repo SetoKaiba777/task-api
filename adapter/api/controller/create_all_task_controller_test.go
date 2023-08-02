@@ -16,7 +16,7 @@ import (
 func TestCreateAllTaskController(t *testing.T) {
 	tt := []TableTestController{
 		{
-			name: "Successful Task",
+			name: "successful Task",
 			input: []input.TaskInput{
 				{
 					Name: "Fazer altos nadas",
@@ -31,7 +31,7 @@ func TestCreateAllTaskController(t *testing.T) {
 			expectedError: nil,
 		},
 		{
-			name: "Invalid Task",
+			name: "invalid Task",
 			input: []input.TaskInput{
 				{
 					Name: "Fazer altos nadas",
@@ -44,6 +44,21 @@ func TestCreateAllTaskController(t *testing.T) {
 			},
 			expectedStatus: http.StatusBadRequest,
 			expectedError: domain.ErrInvalidStatus,
+		},
+		{
+			name: "server error",
+			input: []input.TaskInput{
+				{
+					Name: "Fazer altos nadas",
+					Status: "Doing",
+				},
+				{
+					Name: "Fazer altos nadas 2- 'Pesquisa científica'",
+					Status: "Doing",
+				},
+			},
+			expectedStatus: http.StatusInternalServerError,
+			expectedError: errGeneric,
 		},
 	}
 

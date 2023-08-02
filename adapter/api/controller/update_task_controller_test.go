@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"go-challenger/adapter/api/response"
+	"go-challenger/core/domain"
 	"go-challenger/core/usecase/input"
 	"net/http"
 	"net/http/httptest"
@@ -37,6 +38,17 @@ func TestUpdateTaskController(t *testing.T) {
 			},
 			expectedStatus: http.StatusInternalServerError,
 			expectedError: errGeneric,
+		},
+		{
+			name: "not found",
+			input: "v1/tasks?taskId=1",
+			body: input.TaskInput{
+				Id: "1",
+				Name: "Fazer altos nadas",
+				Status: "Doing",
+			},
+			expectedStatus: http.StatusNotFound,
+			expectedError: domain.ErrNotFoundTask,
 		},
 	}
 

@@ -45,7 +45,7 @@ func TestDeleteUseCase(t *testing.T) {
 				Id:"1",
 			},
 			output: domain.Task{},
-			mockedError:nil,
+			mockedError:domain.ErrNotFoundTask,
 			expectedError: domain.ErrNotFoundTask,
 		},
 	}

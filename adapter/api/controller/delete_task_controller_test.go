@@ -35,7 +35,7 @@ func TestDeleteTaskController(t *testing.T){
 
 	for _,scenario := range tt {
 		t.Run(scenario.name,func(t * testing.T){
-			r, _ := http.NewRequest("POST", scenario.input.(string), &bytes.Reader{})
+			r, _ := http.NewRequest("DELETE", scenario.input.(string), &bytes.Reader{})
 			w := httptest.NewRecorder()
 
 			ucMock := &deleteByIdUseCaseMock{}

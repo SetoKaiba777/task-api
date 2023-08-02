@@ -36,6 +36,15 @@ func TestCreateTaskController(t *testing.T) {
 			expectedStatus: http.StatusBadRequest,
 			expectedError: domain.ErrInvalidStatus,
 		},
+		{
+			name: "server error",
+			input: input.TaskInput{
+					Name: "Fazer altos nadas",
+					Status: "Doing",
+				},
+			expectedStatus: http.StatusInternalServerError,
+			expectedError: errGeneric,
+		},
 	}
 
 	for _,scenario := range tt {
